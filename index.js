@@ -13,7 +13,7 @@ if (process.env.NEW_RELIC_LICENSE_KEY && process.env.NEW_RELIC_APP_NAME) {
 
 
 let config = {
-    errorFrequencySeconds: process.env.ERROR_FREQUENCY ? parseInt(process.env.ERROR_FREQUENCY) : 60,
+    errorFrequencySeconds: 5,
     splunk: {
         token: process.env.SPLUNK_TOKEN,
         url: process.env.SPLUNK_URL,
