@@ -1,0 +1,23 @@
+name: cv-testapp
+replicas: 1
+
+image: ${artifact.metadata.image}
+dockercfg: ${artifact.source.dockerconfig}
+
+createImagePullSecret: false
+
+createNamespace: true
+namespace: ${infra.kubernetes.namespace}
+
+# Specify all environment variables to be added to the container.
+# The following two maps, config and secrets, are put into a ConfigMap
+# and a Secret, respectively.
+# Both are added to the container environment in podSpec as envFrom source.
+env:
+  config:
+    NEW_RELIC_APP_NAME: ${serviceVariable.NewRelicAppName}
+    SPLUNK_URL: ${serviceVariable.SplunkURL}
+    HARNESS_MODE: ${workflow.variables.TestMode}
+  secrets:
+    NEW_RELIC_LICENSE_KEY: ${serviceVariable.NewRelicKey}
+    SPLUNK_TOKEN: ${serviceVariable.SplunkToken}    
