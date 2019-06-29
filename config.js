@@ -18,7 +18,7 @@ let defaults = {
         { path: 'home', rpm: 10, responseTime: 20, errorRate: 0},
         { path: 'auth/login', rpm: 20, responseTime: 10, errorRate: 0},
         { path: 'auth/logout', rpm: 3, responseTime: 5, errorRate: 0},
-        { path: 'auth/signup', rpm: 5, responseTime: 20, errorRate: 5}
+        { path: 'auth/signup', rpm: 20, responseTime: 20, errorRate: 5}
     ]
 }
 
@@ -31,7 +31,7 @@ if (process.env.HARNESS_MODE === "APM_REGRESSION") {
 }
 
 if (process.env.HARNESS_MODE === "UNEXPECTED_FREQUENCY") {
-    defaults.logErrorFrequencySeconds = 200;
+    defaults.logErrorFrequencyPerMinute = 200;
 }
     
 

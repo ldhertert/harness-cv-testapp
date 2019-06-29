@@ -9,7 +9,8 @@ const logger = winston.createLogger({
       format.metadata(),
       format.json(),
     ),
-    transports: [ new winston.transports.Console() ],
+    //transports: [ new winston.transports.Console() ],
+    transports: [ ],
   });
 
 let config;
@@ -18,6 +19,7 @@ module.exports.init = function(c) {
     config = c;
 
     if (config.splunk.enabled) {
+        console.log('INIT: Logging errors to splunk.')
         logger.add(new SplunkStreamEvent({ splunk: config.splunk }));
     }
 }
