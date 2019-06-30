@@ -36,8 +36,9 @@ phases:
       properties:
         analysisServerConfigId: giaNDjPLRkmL6XMLaoCfLA
         includePreviousPhaseNodes: false
+        templateExpressions: null
         analysisTolerance: LOW
-        applicationId: '325883576'
+        applicationId: '325974902'
         comparisonStrategy: COMPARE_WITH_PREVIOUS
         executeWithPreviousSteps: false
         timeDuration: 5
