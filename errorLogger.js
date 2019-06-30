@@ -1,6 +1,7 @@
 const winston = require('winston');
 const { format } = winston;
 const SplunkStreamEvent = require('winston-splunk-httplogger');
+const os = require('os')
 const unusualError = require('./unusualError')
 
 const logger = winston.createLogger({
@@ -21,6 +22,20 @@ module.exports.init = function(c) {
     if (config.splunk.enabled) {
         console.log('INIT: Logging errors to splunk.')
         logger.add(new SplunkStreamEvent({ splunk: config.splunk }));
+    }
+
+    if (config.logzio.enabled) {
+        console.log('INIT: Logging errors to logz.io')
+        const LogzioWinstonTransport = require('winston-logzio');
+        const logzio = new LogzioWinstonTransport({
+            level: 'error',
+            name: 'harness-cv-testapp',
+            token: config.logzio.token,
+            extraFields: {
+                hostname: os.hostname()
+            } 
+        });
+        logger.add(logzio)
     }
 }
 

@@ -14,11 +14,15 @@ let defaults = {
     newrelic: {
         enabled: process.env.NEW_RELIC_LICENSE_KEY && process.env.NEW_RELIC_APP_NAME
     },
+    logzio: {
+        enabled: !!process.env.LOGZIO_TOKEN,
+        token: process.env.LOGZIO_TOKEN,
+    },
     webTransactions: [
         { path: 'home', rpm: 10, responseTime: 20, errorRate: 0},
         { path: 'auth/login', rpm: 20, responseTime: 10, errorRate: 0},
         { path: 'auth/logout', rpm: 3, responseTime: 5, errorRate: 0},
-        { path: 'auth/signup', rpm: 20, responseTime: 20, errorRate: 5}
+        { path: 'auth/signup', rpm: 200, responseTime: 20, errorRate: 20}
     ]
 }
 

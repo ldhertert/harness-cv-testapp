@@ -15,6 +15,7 @@
     "koa-router": "^7.4.0",
     "newrelic": "^5.10.0",
     "winston": "^3.2.1",
+    "winston-logzio": "^5.0.0",
     "winston-splunk-httplogger": "^2.0.0"
   }
 }
