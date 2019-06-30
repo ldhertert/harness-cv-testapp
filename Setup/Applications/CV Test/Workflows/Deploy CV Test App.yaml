@@ -42,11 +42,11 @@ phases:
           metadata:
             entityType: NEWRELIC_APPID
             relatedField: ''
-        analysisTolerance: LOW
+        analysisTolerance: MEDIUM
         applicationId: '325974902'
         comparisonStrategy: COMPARE_WITH_PREVIOUS
         executeWithPreviousSteps: false
-        timeDuration: 15
+        timeDuration: 10
     stepsInParallel: false
   - type: K8S_PHASE_STEP
     name: Wrap Up
