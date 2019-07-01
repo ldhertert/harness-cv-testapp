@@ -1,4 +1,0 @@
-harnessApiVersion: '1.0'
-type: DOCKER
-imageName: ldhertert/harness-cv-testapp
-serverName: Harness Docker Hub
