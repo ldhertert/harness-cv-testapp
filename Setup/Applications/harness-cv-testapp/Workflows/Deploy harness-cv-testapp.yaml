@@ -21,28 +21,6 @@ phases:
     stepsInParallel: false
   - type: K8S_PHASE_STEP
     name: Verify
-    steps:
-    - type: NEW_RELIC
-      name: New Relic
-      properties:
-        analysisServerConfigId: giaNDjPLRkmL6XMLaoCfLA
-        includePreviousPhaseNodes: false
-        templateExpressions:
-        - fieldName: analysisServerConfigId
-          expression: ${NewRelic_Server}
-          metadata:
-            entityType: NEWRELIC_CONFIGID
-            relatedField: ${NewRelic_Application}
-        - fieldName: applicationId
-          expression: ${NewRelic_Application}
-          metadata:
-            entityType: NEWRELIC_APPID
-            relatedField: ''
-        analysisTolerance: MEDIUM
-        applicationId: '325974902'
-        comparisonStrategy: COMPARE_WITH_PREVIOUS
-        executeWithPreviousSteps: false
-        timeDuration: 10
     stepsInParallel: false
   - type: K8S_PHASE_STEP
     name: Wrap Up
@@ -151,14 +129,6 @@ userVariables:
   fixed: false
   mandatory: true
   name: ServiceInfra_Kubernetes
-- type: ENTITY
-  fixed: false
-  mandatory: true
-  name: NewRelic_Server
-- type: ENTITY
-  fixed: false
-  mandatory: true
-  name: NewRelic_Application
 - type: TEXT
   allowedValues: NORMAL,UNKNOWN_EVENT,UNEXPECTED_FREQUENCY,APM_REGRESSION
   fixed: false
