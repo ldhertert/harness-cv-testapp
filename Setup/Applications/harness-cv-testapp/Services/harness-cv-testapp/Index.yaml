@@ -3,7 +3,7 @@ type: SERVICE
 artifactType: DOCKER
 configVariables:
 - name: NewRelicAppName
-  value: HarnessTesting2
+  value: harness-cv-testapp
   valueType: TEXT
 - name: SplunkURL
   value: https://input-prd-p-4v888wkr58fh.cloud.splunk.com:8088/services/collector
