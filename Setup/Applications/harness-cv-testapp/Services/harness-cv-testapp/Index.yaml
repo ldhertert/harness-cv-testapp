@@ -15,6 +15,6 @@ configVariables:
   value: replace with secret
   valueType: TEXT
 - name: NewRelicKey
-  value: replace with secret
+  value: REPLACE THIS WITH A SECRET
   valueType: TEXT
 deploymentType: KUBERNETES
