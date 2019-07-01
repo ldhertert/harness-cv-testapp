@@ -1,0 +1,123 @@
+harnessApiVersion: '1.0'
+type: CANARY
+envName: Dev
+failureStrategies:
+- executionScope: WORKFLOW
+  failureTypes:
+  - APPLICATION_ERROR
+  repairActionCode: ROLLBACK_WORKFLOW
+  retryCount: 0
+phases:
+- type: KUBERNETES
+  computeProviderName: AWS Sales Playground - EKS
+  daemonSet: false
+  infraMappingName: k8s-dev
+  name: Canary
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    steps:
+    - type: K8S_CANARY_DEPLOY
+      name: Canary Deployment
+      properties:
+        instanceUnitType: COUNT
+        instances: '1'
+        stateTimeoutInMinutes: 10
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Verify
+    steps:
+    - type: NEW_RELIC
+      name: New Relic
+      properties:
+        analysisServerConfigId: giaNDjPLRkmL6XMLaoCfLA
+        includePreviousPhaseNodes: false
+        analysisTolerance: MEDIUM
+        applicationId: '325974902'
+        comparisonStrategy: COMPARE_WITH_CURRENT
+        executeWithPreviousSteps: false
+        timeDuration: 10
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    steps:
+    - type: K8S_DELETE
+      name: Canary Delete
+      properties:
+        instanceUnitType: COUNT
+        resources: ${k8s.canaryWorkload}
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: harness-cv-testapp
+  statefulSet: false
+- type: KUBERNETES
+  computeProviderName: AWS Sales Playground - EKS
+  daemonSet: false
+  infraMappingName: k8s-dev
+  name: Primary
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    steps:
+    - type: K8S_DEPLOYMENT_ROLLING
+      name: Rollout Deployment
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Verify
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: harness-cv-testapp
+  statefulSet: false
+rollbackPhases:
+- type: KUBERNETES
+  computeProviderName: AWS Sales Playground - EKS
+  daemonSet: false
+  infraMappingName: k8s-dev
+  name: Rollback Canary
+  phaseNameForRollback: Canary
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    phaseStepNameForRollback: Deploy
+    statusForRollback: SUCCESS
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    phaseStepNameForRollback: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: harness-cv-testapp
+  statefulSet: false
+- type: KUBERNETES
+  computeProviderName: AWS Sales Playground - EKS
+  daemonSet: false
+  infraMappingName: k8s-dev
+  name: Rollback Primary
+  phaseNameForRollback: Primary
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    phaseStepNameForRollback: Deploy
+    statusForRollback: SUCCESS
+    steps:
+    - type: K8S_DEPLOYMENT_ROLLING_ROLLBACK
+      name: Rollback Deployment
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    phaseStepNameForRollback: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: harness-cv-testapp
+  statefulSet: false
+templatized: true
+userVariables:
+- type: TEXT
+  allowedValues: NORMAL,UNKNOWN_EVENT,UNEXPECTED_FREQUENCY,APM_REGRESSION
+  fixed: false
+  mandatory: true
+  name: TestMode
+  value: NORMAL
