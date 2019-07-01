@@ -12,7 +12,7 @@ configVariables:
   value: NORMAL
   valueType: TEXT
 - name: SplunkToken
-  value: replace with secret
+  value: REPLACE THIS WITH A SECRET
   valueType: TEXT
 - name: NewRelicKey
   value: REPLACE THIS WITH A SECRET
