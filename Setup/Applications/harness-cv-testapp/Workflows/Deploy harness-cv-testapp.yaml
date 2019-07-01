@@ -19,7 +19,6 @@ phases:
 - type: KUBERNETES
   computeProviderName: AWS Sales Playground - EKS
   daemonSet: false
-  infraMappingName: Kubernetes Cluster_ AWS Sales Playground - EKS_DIRECT_Kubernetes_cv-test
   name: Rolling
   phaseSteps:
   - type: K8S_PHASE_STEP
@@ -55,6 +54,15 @@ phases:
   serviceName: harness-cv-testapp
   statefulSet: false
   templateExpressions:
+  - expression: ${Service}
+    fieldName: serviceId
+    metadata:
+    - name: artifactType
+      value: DOCKER
+    - name: relatedField
+      value: ${ServiceInfra_Kubernetes}
+    - name: entityType
+      value: SERVICE
   - expression: ${ServiceInfra_Kubernetes}
     fieldName: infraMappingId
     metadata:
@@ -67,7 +75,6 @@ rollbackPhases:
 - type: KUBERNETES
   computeProviderName: AWS Sales Playground - EKS
   daemonSet: false
-  infraMappingName: Kubernetes Cluster_ AWS Sales Playground - EKS_DIRECT_Kubernetes_cv-test
   name: Rollback Rolling
   phaseNameForRollback: Rolling
   phaseSteps:
@@ -87,6 +94,15 @@ rollbackPhases:
   serviceName: harness-cv-testapp
   statefulSet: false
   templateExpressions:
+  - expression: ${Service}
+    fieldName: serviceId
+    metadata:
+    - name: artifactType
+      value: DOCKER
+    - name: relatedField
+      value: ${ServiceInfra_Kubernetes}
+    - name: entityType
+      value: SERVICE
   - expression: ${ServiceInfra_Kubernetes}
     fieldName: infraMappingId
     metadata:
@@ -104,6 +120,15 @@ templateExpressions:
   - name: relatedField
   - name: entityType
     value: ENVIRONMENT
+- expression: ${Service}
+  fieldName: serviceId
+  metadata:
+  - name: artifactType
+    value: DOCKER
+  - name: relatedField
+    value: ${ServiceInfra_Kubernetes}
+  - name: entityType
+    value: SERVICE
 - expression: ${ServiceInfra_Kubernetes}
   fieldName: infraMappingId
   metadata:
@@ -119,6 +144,11 @@ userVariables:
   fixed: false
   mandatory: true
   name: Environment
+- type: ENTITY
+  description: Variable for Service entity in Rollback Rolling
+  fixed: false
+  mandatory: true
+  name: Service
 - type: ENTITY
   description: Variable for Service Infra-structure entity in Rollback Rolling
   fixed: false
