@@ -38,6 +38,15 @@ phases:
   provisionNodes: false
   serviceName: harness-cv-testapp
   statefulSet: false
+  templateExpressions:
+  - expression: ${ServiceInfra_Kubernetes}
+    fieldName: infraMappingId
+    metadata:
+    - name: artifactType
+      value: DOCKER
+    - name: relatedField
+    - name: entityType
+      value: INFRASTRUCTURE_MAPPING
 rollbackPhases:
 - type: KUBERNETES
   computeProviderName: AWS Sales Playground - EKS
@@ -58,8 +67,22 @@ rollbackPhases:
   provisionNodes: false
   serviceName: harness-cv-testapp
   statefulSet: false
+  templateExpressions:
+  - expression: ${ServiceInfra_Kubernetes}
+    fieldName: infraMappingId
+    metadata:
+    - name: artifactType
+      value: DOCKER
+    - name: relatedField
+    - name: entityType
+      value: INFRASTRUCTURE_MAPPING
 templatized: true
 userVariables:
+- type: ENTITY
+  description: Variable for Service Infra-structure entity in Rollback Canary
+  fixed: false
+  mandatory: true
+  name: ServiceInfra_Kubernetes
 - type: TEXT
   allowedValues: NORMAL,UNKNOWN_EVENT,UNEXPECTED_FREQUENCY,APM_REGRESSION
   fixed: false
