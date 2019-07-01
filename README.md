@@ -29,6 +29,8 @@ Usage
    * Ensure you have permissions to push to the target repo via `docker push`, and then run 
 
        ```bash
+       npm install
+       
        # These are just helper shortcuts.  Normal docker build/push commands work as well.
        npm run docker:build
        npm run docker:publish
