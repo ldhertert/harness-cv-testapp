@@ -3,10 +3,27 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "config": {
+    "imageRepo": "ldhertert/harness-cv-testapp"
+  },
   "scripts": {
-    "start": "node index.js"
+    "run": "node index.js",
+    "docker:build": "cross-conf-env docker image build . -t $npm_package_config_imageRepo:$npm_package_version",
+    "postdocker:build": "npm run docker:tag",
+    "docker:tag": " cross-conf-env docker image tag $npm_package_config_imageRepo:$npm_package_version $npm_package_config_imageRepo:latest",
+    "docker:run": "run-s -c docker:clean docker:runHelper",
+    "docker:runHelper": "cross-conf-env docker run --name $npm_package_config_imageName $npm_package_config_imageRepo:$npm_package_version",
+    "predocker:publish": "echo Attention! Ensure `docker login` is correct.",
+    "docker:publish": "cross-conf-env docker image push $npm_package_config_imageRepo:$npm_package_version",
+    "postdocker:publish": "cross-conf-env docker image push $npm_package_config_imageRepo:latest",
+    "docker:clean": "cross-conf-env docker rm -f $npm_package_config_imageName"
   },
   "author": "Luke Hertert (luke.hertert@harness.io)",
+  "homepage": "https://github.com/ldhertert/harness-cv-testapp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ldhertert/harness-cv-testapp.git"
+  },
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",
@@ -17,5 +34,9 @@
     "winston": "^3.2.1",
     "winston-logzio": "^5.0.0",
     "winston-splunk-httplogger": "^2.0.0"
+  },
+  "devDependencies": {
+    "cross-conf-env": "^1.1.2",
+    "run-s": "0.0.0"
   }
 }
