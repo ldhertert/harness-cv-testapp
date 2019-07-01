@@ -41,6 +41,11 @@ To publish to Docker Hub, run the following:
 
 `npm run docker:build && npm run docker:publish` 
 
+Changelog
+---------
+
+* 1.0.0 - June 30, 2019 - Initial release.  Support for New Relic & Splunk on Kubernetes.
+
 Roadmap
 -------
 * ELK - In progress
