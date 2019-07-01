@@ -36,6 +36,11 @@ phases:
         analysisServerConfigId: giaNDjPLRkmL6XMLaoCfLA
         includePreviousPhaseNodes: false
         templateExpressions:
+        - fieldName: analysisServerConfigId
+          expression: ${NewRelic_Server}
+          metadata:
+            entityType: NEWRELIC_CONFIGID
+            relatedField: ${NewRelic_Application}
         - fieldName: applicationId
           expression: ${NewRelic_Application}
           metadata:
@@ -154,6 +159,10 @@ userVariables:
   fixed: false
   mandatory: true
   name: ServiceInfra_Kubernetes
+- type: ENTITY
+  fixed: false
+  mandatory: true
+  name: NewRelic_Server
 - type: ENTITY
   fixed: false
   mandatory: true
