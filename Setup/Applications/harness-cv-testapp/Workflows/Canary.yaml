@@ -15,4 +15,11 @@ notificationRules:
   userGroupAsExpression: false
   userGroupIds:
   - PFIVcv84TVW6OEpQEDvmGw
-templatized: false
+templatized: true
+userVariables:
+- type: TEXT
+  allowedValues: NORMAL,UNKNOWN_EVENT,UNEXPECTED_FREQUENCY,APM_REGRESSION
+  fixed: false
+  mandatory: true
+  name: TestMode
+  value: NORMAL
