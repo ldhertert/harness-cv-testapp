@@ -7,6 +7,19 @@ if (config.newrelic.enabled) {
     require('newrelic');
 }
 
+if (config.appd.enabled) {
+    require("appdynamics").profile({
+        controllerHostName: config.appd.controllerHostName,
+        controllerPort: config.appd.controllerPort, 
+        controllerSslEnabled: config.appd.controllerSslEnabled,
+        accountName: config.appd.accountName,
+        accountAccessKey: config.appd.accessKey,
+        applicationName: config.appd.applicationName,
+        tierName: 'harness-cv-testapp-web',
+        nodeName: 'process' // The controller will automatically append the node name with a unique number
+    });
+}
+
 const Koa = require('koa');
 var Router = require('koa-router');
 

@@ -1,5 +1,6 @@
 require('dotenv').config()
 const os = require('os');
+const url = require('url');
 
 let defaults = {
     logErrorFrequencyPerMinute: 5,
@@ -14,6 +15,12 @@ let defaults = {
     newrelic: {
         enabled: process.env.NEW_RELIC_LICENSE_KEY && process.env.NEW_RELIC_APP_NAME
     },
+    appd: {
+        enabled: process.env.APPD_CONTROLLER_URL && process.env.APPD_ACCESS_KEY,
+        controllerUrl: process.env.APPD_CONTROLLER_URL,
+        accessKey: process.env.APPD_ACCESS_KEY,
+        applicationName: process.env.APPD_APPLICATION_NAME || 'harness-cv-testapp'
+    },
     logzio: {
         enabled: !!process.env.LOGZIO_TOKEN,
         token: process.env.LOGZIO_TOKEN,
@@ -24,6 +31,20 @@ let defaults = {
         { path: 'auth/logout', rpm: 3, responseTime: 5, errorRate: 0},
         { path: 'auth/signup', rpm: 200, responseTime: 20, errorRate: 20}
     ]
+}
+
+if (defaults.appd.enabled) {
+    let parsed = url.parse(defaults.appd.controllerUrl);
+    defaults.appd.controllerHostName = parsed.hostname;
+    defaults.appd.controllerSslEnabled = parsed.protocol.toLowerCase() === 'https:';
+    defaults.appd.controllerPort = parsed.port ? parseInt(parsed.port) : (defaults.appd.controllerSslEnabled ? 443 : 80);
+    if (process.env.APPD_ACCOUNT_NAME) {
+        defaults.appd.accountName = process.env.APPD_ACCOUNT_NAME;
+    } else if (defaults.appd.controllerHostName.toLowerCase().indexOf('.saas.appdynamics.com') > 0) {
+        defaults.appd.accountName = defaults.appd.controllerHostName.split('.')[0];
+    } else {
+        defaults.appd.accountName = 'customer1';
+    }
 }
 
 if (process.env.HARNESS_MODE === "APM_REGRESSION") {

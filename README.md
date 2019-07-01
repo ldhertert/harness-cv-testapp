@@ -68,6 +68,16 @@ NEW_RELIC_LICENSE_KEY=xxxxxxxxxx
 NEW_RELIC_APP_NAME=YourNewRelicApp
 ```
 
+To enable AppDynamics, set the following environment variables
+
+```
+APPD_CONTROLLER_URL=https://myinstance.saas.appdynamics.com
+APPD_ACCESS_KEY=xxxx
+#Optional config settings, will be inferred if excluded
+APPD_APPLICATION_NAME (default harness-cv-testapp)
+APPD_ACCOUNT_NAME (inferred from URL if SaaS, customer1 if non-SaaS url)
+```
+
 To enable Splunk, set the following environment variables
 
 ```
@@ -95,6 +105,7 @@ To publish to Docker Hub, run the following:
 Changelog
 ---------
 
+* 1.1.0 - July 1, 2019 - Added support for AppDynamics APM
 * 1.0.0 - June 30, 2019 - Initial release.  Support for New Relic & Splunk on Kubernetes.
 
 Roadmap
