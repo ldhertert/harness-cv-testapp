@@ -6,7 +6,7 @@ configVariables:
   value: harness-cv-testapp
   valueType: TEXT
 - name: SplunkURL
-  value: https://input-prd-p-4v888wkr58fh.cloud.splunk.com:8088/services/collector
+  value: https://input-prd-p-xxxxxxxxx.cloud.splunk.com:8088/services/collector
   valueType: TEXT
 - name: HarnessMode
   value: NORMAL
