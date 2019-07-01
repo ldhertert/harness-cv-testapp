@@ -10,6 +10,54 @@ The current Docker image can be found at https://hub.docker.com/r/ldhertert/harn
 Usage
 -----
 
+**Prerequisites**: Existing Harness account with connectors in place for docker registry, kubernetes cluster, and a working delegate.
+
+-----
+
+1) Fork this repository
+2) Clone your fork to your local machine
+   
+   `git clone https://github.com/ldhertert/harness-cv-testapp.git`
+
+3) **Optional** - Publish docker image to your own repository
+
+   * Modify `package.json`  and put your repo/image information in the following section
+
+       ```json
+       "config": {
+           "imageRepo": "ldhertert/harness-cv-testapp"
+       }
+       ```
+
+   * Ensure you have permissions to push to the target repo via `docker push`, and then run 
+
+       ```bash
+       npm run docker:build
+       npm run docker:publish
+       ```
+4) In Harness, create a new Git connector that points to your forked repository
+5) Create a new Harness application called `harness-cv-testapp` and configure it with Git sync using your new git connector.
+6) Harness does not currently import preexisting config as code when a new application is created, so we need to revert a commit that was automatically made.  On your local machine, within the cloned git repo, run the following
+
+    ```bash
+    git pull
+    git revert HEAD --no-edit
+    git push origin master
+    ```
+
+7) You will probably get a notification in the Harness UI that Harness was unable to process some changes from Git.  We just need to tweak one thing.  Click the link from the notification, find the error for `Applications/harness-cv-testapp/Environments/Dev/Service Infrastructure/k8s-dev.yaml` (you can ignore any other errors), click **Fix This** and edit the value of `computeProviderName` to the name of your Kubernetes cloud provider in Harness
+8) Now that your YAML is imported, we need to customize a few things:
+
+    * In the service editor, add the docker image as an artifact and set the values for your New Relic API Key, New Relic Application Name, Splunk URL, and Splunk Token
+    * In the Environments, modify the infra mapping if needed to specify namespace
+    * In the workflow, click into the canary phase.  In the verification steps, update New Relic Server, New Relic App Name, and Splunk Server.
+
+9) You're ready to start deploying.  Execute the workflow, and select `Normal` for the `TestMode` parameter.  This will perform an initial deployment with normal expected performance.
+10) Execute additional deployments with different `TestMode` values to prove out different failure use cases.  Verification should fail, and Harness should automatically roll back to the `Normal` artifact.
+
+Direct Docker Usage
+-------------------
+
 To enable New Relic, set the following environment variables
 
 ```
