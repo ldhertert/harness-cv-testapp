@@ -76,8 +76,22 @@ rollbackPhases:
     - name: relatedField
     - name: entityType
       value: INFRASTRUCTURE_MAPPING
+templateExpressions:
+- expression: ${Environment}
+  fieldName: envId
+  metadata:
+  - name: artifactType
+    value: DOCKER
+  - name: relatedField
+  - name: entityType
+    value: ENVIRONMENT
 templatized: true
 userVariables:
+- type: ENTITY
+  description: Variable for Environment entity
+  fixed: false
+  mandatory: true
+  name: Environment
 - type: ENTITY
   description: Variable for Service Infra-structure entity in Rollback Canary
   fixed: false
