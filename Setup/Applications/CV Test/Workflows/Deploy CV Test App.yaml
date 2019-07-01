@@ -36,11 +36,17 @@ phases:
       properties:
         analysisServerConfigId: giaNDjPLRkmL6XMLaoCfLA
         includePreviousPhaseNodes: false
-        analysisTolerance: LOW
-        applicationId: '325883576'
+        templateExpressions:
+        - fieldName: applicationId
+          expression: ${NewRelic_Application}
+          metadata:
+            entityType: NEWRELIC_APPID
+            relatedField: ''
+        analysisTolerance: MEDIUM
+        applicationId: '325974902'
         comparisonStrategy: COMPARE_WITH_PREVIOUS
         executeWithPreviousSteps: false
-        timeDuration: 5
+        timeDuration: 10
     stepsInParallel: false
   - type: K8S_PHASE_STEP
     name: Wrap Up
@@ -118,6 +124,10 @@ userVariables:
   fixed: false
   mandatory: true
   name: ServiceInfra_Kubernetes
+- type: ENTITY
+  fixed: false
+  mandatory: true
+  name: NewRelic_Application
 - type: TEXT
   allowedValues: NORMAL,UNKNOWN_EVENT,UNEXPECTED_FREQUENCY,APM_REGRESSION
   fixed: false
