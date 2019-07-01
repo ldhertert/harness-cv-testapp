@@ -35,6 +35,16 @@ phases:
       properties:
         instanceUnitType: COUNT
         resources: ${k8s.canaryWorkload}
+    - type: NEW_RELIC
+      name: New Relic
+      properties:
+        analysisServerConfigId: giaNDjPLRkmL6XMLaoCfLA
+        includePreviousPhaseNodes: false
+        analysisTolerance: MEDIUM
+        applicationId: '325974902'
+        comparisonStrategy: COMPARE_WITH_CURRENT
+        executeWithPreviousSteps: false
+        timeDuration: 10
     stepsInParallel: false
   provisionNodes: false
   serviceName: harness-cv-testapp
