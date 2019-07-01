@@ -12,8 +12,8 @@ configVariables:
   value: NORMAL
   valueType: TEXT
 - name: SplunkToken
-  value: amazonkms:GvS6LsizQLaG72xcyRiDbQ
-  valueType: ENCRYPTED_TEXT
+  value: replace with secret
+  valueType: TEXT
 - name: NewRelicKey
   value: replace with secret
   valueType: TEXT
