@@ -7,22 +7,8 @@ failureStrategies:
   - APPLICATION_ERROR
   repairActionCode: ROLLBACK_WORKFLOW
   retryCount: 0
-templateExpressions:
-- expression: ${Environment}
-  fieldName: envId
-  metadata:
-  - name: artifactType
-    value: DOCKER
-  - name: relatedField
-  - name: entityType
-    value: ENVIRONMENT
 templatized: true
 userVariables:
-- type: ENTITY
-  description: Variable for Environment entity
-  fixed: false
-  mandatory: true
-  name: Environment
 - type: TEXT
   allowedValues: NORMAL,UNKNOWN_EVENT,UNEXPECTED_FREQUENCY,APM_REGRESSION
   fixed: false
