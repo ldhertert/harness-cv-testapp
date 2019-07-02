@@ -105,7 +105,8 @@ To publish to Docker Hub, run the following:
 Changelog
 ---------
 
-* 1.1.0 - July 1, 2019 - Added support for AppDynamics APM
+* 1.0.2 - July 2, 2019 - Fix docker CMD
+* 1.0.1 - July 1, 2019 - Added support for AppDynamics APM
 * 1.0.0 - June 30, 2019 - Initial release.  Support for New Relic & Splunk on Kubernetes.
 
 Roadmap
