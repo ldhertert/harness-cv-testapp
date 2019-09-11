@@ -14,10 +14,14 @@ steps:
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '.'
+    targetPath: '$(Build.ArtifactStagingDirectory)'
     artifact: 'artifact'
 
 #- script: |
