@@ -20,6 +20,6 @@ steps:
     targetPath: '$(Build.ArtifactStagingDirectory)'
     artifact: 'artifact'
 
-- script: |
-    curl -X POST -H 'content-type: application/json' --url https://app.harness.io/gateway/api/webhooks/8PxhVAm1NZjcAzuOueE7a3SMcPSjoY8hcFmmBdG4?accountId=SAsyUUHTTImuYSZ35HPDvw -d '{"application":"hvxP_YZASfuwstlpQAYpQw","artifacts":[{"service":"Azure Devops","buildNumber":"$(Build.BuildId)"}]}'
-  displayName: 'Trigger Harness'
+#- script: |
+#    curl -X POST -H 'content-type: application/json' --url https://app.harness.io/gateway/api/webhooks/8PxhVAm1NZjcAzuOueE7a3SMcPSjoY8hcFmmBdG4?accountId=SAsyUUHTTImuYSZ35HPDvw -d '{"application":"hvxP_YZASfuwstlpQAYpQw","artifacts":[{"service":"Azure Devops","buildNumber":"$(Build.BuildId)"}]}'
+#  displayName: 'Trigger Harness'
