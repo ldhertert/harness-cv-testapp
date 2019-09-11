@@ -1,0 +1,25 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifact: 'artifact'
+
+#- script: |
+#    curl -X POST -H 'content-type: application/json' --url https://app.harness.io/gateway/api/webhooks/8PxhVAm1NZjcAzuOueE7a3SMcPSjoY8hcFmmBdG4?accountId=SAsyUUHTTImuYSZ35HPDvw -d '{"application":"hvxP_YZASfuwstlpQAYpQw","artifacts":[{"service":"Azure Devops","buildNumber":"$(Build.BuildId)"}]}'
+#  displayName: 'Trigger Harness'
