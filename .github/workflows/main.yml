@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     
-    runs-on: actions/docker/cli@master
-    
     runs-on: ubuntu-latest
     
     steps:
