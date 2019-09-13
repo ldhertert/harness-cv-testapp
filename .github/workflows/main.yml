@@ -15,4 +15,4 @@ jobs:
     - name: Build docker image
       uses: actions/docker/cli@master
       with:
-        args: build -t ldhertert/harness-cv-testapp:${{GITHUB_SHA}} .
+        args: build -t ldhertert/harness-cv-testapp:${GITHUB_SHA} .
