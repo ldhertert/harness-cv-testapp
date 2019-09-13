@@ -20,6 +20,11 @@ jobs:
       uses: actions/docker/cli@master
       with:
         args: build -t ldhertert/harness-cv-testapp:$(cat $GITHUB_WORKSPACE/version) .
+    
+    - name: Tag as latest
+      uses: actions/docker/cli@master
+      with:
+        args: tag ldhertert/harness-cv-testapp:$(cat $GITHUB_WORKSPACE/version) ldhertert/harness-cv-testapp:latest
 
     - name: Docker Login
       uses: actions/docker/login@master
