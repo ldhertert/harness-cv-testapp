@@ -23,6 +23,8 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Push to Docker Hub
       uses: actions/docker/cli@master
+      needs: 
+        - Build docker image
+        - Docker login
       with:
-        needs: [Build docker image, Docker login]
         args: push ldhertert/harness-cv-testapp
