@@ -12,7 +12,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Build docker image
-      uses: actions/docker/cli@master
-      with:
-        args: build -t ldhertert/harness-cv-testapp:${GITHUB_SHA} .
+    #- name: Build docker image
+    #  uses: actions/docker/cli@master
+    #  with:
+    #    args: build -t ldhertert/harness-cv-testapp:$(echo $GITHUB_SHA | head -c7) .
+    - name: Docker login
+      users: actions/docker/login@master
+      env:
+        DOCKER_USERNAME: ldhertert
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
