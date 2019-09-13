@@ -24,7 +24,5 @@ jobs:
     - name: Push to Docker Hub
       uses: actions/docker/cli@master
       with:
-        needs:
-          - Build docker image
-          - Docker login
+        needs: [Build docker image, Docker login]
         args: push ldhertert/harness-cv-testapp
