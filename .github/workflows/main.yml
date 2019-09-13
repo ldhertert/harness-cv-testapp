@@ -13,13 +13,13 @@ jobs:
     - name: Checkout master
       uses: actions/checkout@master
 
-#    - name: Update SHA
-#      run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
+    - name: Get version from package.json
+      run: cat package.json | grep '"version":' |  awk '{print $2}' | sed 's/"//g' | sed 's/,//g' > $GITHUB_WORKSPACE/version
 
     - name: Build container image
       uses: actions/docker/cli@master
       with:
-        args: build -t ldhertert/harness-cv-testapp:$(echo $GITHUB_SHA | head -c7) .
+        args: build -t ldhertert/harness-cv-testapp:$(cat $GITHUB_WORKSPACE/version) .
 
     - name: Docker Login
       uses: actions/docker/login@master
