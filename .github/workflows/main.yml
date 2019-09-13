@@ -17,7 +17,7 @@ jobs:
     #  with:
     #    args: build -t ldhertert/harness-cv-testapp:$(echo $GITHUB_SHA | head -c7) .
     - name: Docker login
-      users: actions/docker/login@master
+      uses: actions/docker/login@master
       env:
         DOCKER_USERNAME: ldhertert
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
