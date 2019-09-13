@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    
     runs-on: ubuntu-latest
     
     steps:
@@ -16,15 +15,19 @@ jobs:
       uses: actions/docker/cli@master
       with:
         args: build -t ldhertert/harness-cv-testapp:$(echo $GITHUB_SHA | head -c7) .
+  login:
+    steps:
     - name: Docker login
       uses: actions/docker/login@master
       env:
         DOCKER_USERNAME: ldhertert
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  push:
+    needs: 
+      - Build docker image
+      - Docker login
+    steps:
     - name: Push to Docker Hub
       uses: actions/docker/cli@master
-      needs: 
-        - Build docker image
-        - Docker login
       with:
         args: push ldhertert/harness-cv-testapp
