@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    
+    runs-on: actions/docker/cli@master
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build docker image
+      uses: actions/docker/cli@master
+      with:
+        args: build -t ldhertert/harness-cv-testapp:${{GITHUB_SHA}} .
