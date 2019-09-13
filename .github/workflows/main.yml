@@ -31,4 +31,4 @@ jobs:
     - name: Push to Docker Hub
       uses: actions/docker/cli@master
       with:
-        args: push ldhertert/harness-cv-testapp
+        args: push ldhertert/harness-cv-testapp:$(echo $GITHUB_SHA | head -c7)
