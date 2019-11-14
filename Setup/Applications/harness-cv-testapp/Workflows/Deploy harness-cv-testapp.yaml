@@ -31,11 +31,11 @@ phases:
       name: New Relic
       properties:
         analysisServerConfigId: giaNDjPLRkmL6XMLaoCfLA
-        includePreviousPhaseNodes: false
         analysisTolerance: MEDIUM
         applicationId: '325974902'
         comparisonStrategy: COMPARE_WITH_CURRENT
         executeWithPreviousSteps: false
+        includePreviousPhaseNodes: false
         timeDuration: 10
     stepsInParallel: false
   - type: K8S_PHASE_STEP
