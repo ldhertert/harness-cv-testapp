@@ -17,9 +17,6 @@
             "instance_type": "t2.micro",
             "ssh_username": "ubuntu",
             "ami_name": "harness-cv-testapp {{timestamp}}",
-            "ami_groups": [
-                "all"
-            ],
             "tags": {
                 "Name": "harness-cv-testapp"
             }
