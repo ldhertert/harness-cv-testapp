@@ -1,66 +1,44 @@
 {
     "builders": [
         {
-            "type": "amazon-ebs",
-            "region": "us-east-2",
-            "source_ami_filter": {
-                "filters": {
-                    "virtualization-type": "hvm",
-                    "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
-                    "root-device-type": "ebs"
-                },
-                "owners": [
-                    "099720109477"
-                ],
-                "most_recent": true
-            },
-            "instance_type": "t2.micro",
-            "ssh_username": "ubuntu",
-            "ami_name": "harness-cv-testapp {{timestamp}}",
-            "tags": {
-                "Name": "harness-cv-testapp"
-            }
+            "type": "docker",
+            "image": "node:10",
+            "commit": true,
+            "changes": [
+                "WORKDIR /usr/src/app",
+                "CMD [ \"node\", \"index.js\" ]"
+            ]
         }
     ],
     "provisioners": [
         {
             "type": "file",
             "source": "./package.json",
-            "destination": "/home/ubuntu/"
+            "destination": "./"
         },
         {
             "type": "file",
-            "source": "./ecosystem.config.js",
-            "destination": "/home/ubuntu/"
+            "source": "./cicd/packer/ecosystem.config.js",
+            "destination": "./"
         },
         {
             "type": "file",
             "source": "./src/",
-            "destination": "/home/ubuntu/"
+            "destination": "./"
         },
         {
             "type": "shell",
             "inline": [
-                "wget https://deb.nodesource.com/setup_10.x",
-                "chmod +x setup_10.x",
-                "echo 'packer' | sudo -S sh -c './setup_10.x'",
-                "echo 'packer' | sudo -S sh -c 'apt install nodejs -y'",
-                "echo 'packer' | sudo -S sh -c 'apt install build-essential -y'",
-                "npm config set python python3",
-                "npm install",
-                "chmod +x index.js",
-                "echo 'packer' | sudo -S sh -c 'npm install -g pm2'",
-                "echo 'packer' | sudo -S sh -c 'pm2 start ecosystem.config.js'",
-                "echo 'packer' | sudo -S sh -c 'pm2 startup systemd'"
+                "npm install"
             ]
         }
     ],
     "post-processors": [
-        [
-            {
-                "output": ".packer-manifest.json",
-                "type": "manifest"
-            }
-        ]
+        {
+            "type": "docker-tag",
+            "repository": "ldhertert/harness-cv-testapp",
+            "tag": "packer"
+        },
+        "docker-push"
     ]
 }

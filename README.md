@@ -118,3 +118,5 @@ Roadmap
 * AppDynamics - TBD
 * Dynatrace - TBD
 * Support for non-kubernetes deployments - TBD
+* Configure cloudwatch logs for AMI (https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html)
+* Allow configuration of load generator to point to external load balancer
