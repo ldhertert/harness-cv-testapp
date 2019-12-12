@@ -30,8 +30,17 @@ phases:
       name: App Setup
       properties:
         blueGreen: false
+        finalRouteMap: null
         isWorkflowV2: true
+        olderActiveVersionCountToKeep: 3
+        processAutoscalarPluginConfig: false
         resizeStrategy: DOWNSIZE_OLD_FIRST
+        templateUuid: null
+        templateVariables: null
+        templateVersion: null
+        timeoutIntervalInMinutes: 5
+        useAppAutoscalar: false
+        useCurrentRunningCount: false
     stepsInParallel: false
   - type: PCF_RESIZE
     name: Deploy
