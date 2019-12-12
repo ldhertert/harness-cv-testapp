@@ -21,7 +21,7 @@ module.exports.start = function(config) {
         addTransaction(router, t.path, t.responseTime, t.errorRate);
     })
 
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
 }
 
 function addTransaction(router, path, responseTime, errorRate) {

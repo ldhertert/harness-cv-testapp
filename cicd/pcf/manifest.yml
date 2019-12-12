@@ -1,0 +1,9 @@
+---
+applications:
+- name: harness-cv-testapp
+  buildpacks:
+    - nodejs_buildpack
+  memory: 128M
+  instances: 1
+  env:
+    TEST: hi
