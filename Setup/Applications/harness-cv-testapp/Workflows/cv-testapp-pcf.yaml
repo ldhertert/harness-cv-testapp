@@ -18,7 +18,7 @@ notificationRules:
   - PFIVcv84TVW6OEpQEDvmGw
 phases:
 - type: PCF
-  computeProviderName: pcf
+  computeProviderName: luke-pcf
   daemonSet: false
   infraDefinitionName: pcf-dev
   name: Phase 1
@@ -68,7 +68,7 @@ preDeploymentSteps:
   name: Artifact Check
 rollbackPhases:
 - type: PCF
-  computeProviderName: pcf
+  computeProviderName: luke-pcf
   daemonSet: false
   infraDefinitionName: pcf-dev
   name: Rollback Phase 1
