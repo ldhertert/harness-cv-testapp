@@ -4,6 +4,6 @@ cloudProviderType: PCF
 deploymentType: PCF
 infrastructure:
 - type: PCF_PCF
-  cloudProviderName: pcf
+  cloudProviderName: luke-pcf
   organization: luke.hertert-org
   space: development

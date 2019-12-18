@@ -1,5 +1,6 @@
 harnessApiVersion: '1.0'
 type: CANARY
+concurrencyStrategy: INFRA
 envName: Dev
 failureStrategies:
 - executionScope: WORKFLOW
@@ -11,7 +12,7 @@ phases:
 - type: KUBERNETES
   computeProviderName: AWS Sales Playground - EKS
   daemonSet: false
-  infraMappingName: k8s-dev
+  infraDefinitionName: k8s-dev
   name: Canary
   phaseSteps:
   - type: K8S_PHASE_STEP
@@ -53,7 +54,7 @@ phases:
 - type: KUBERNETES
   computeProviderName: AWS Sales Playground - EKS
   daemonSet: false
-  infraMappingName: k8s-dev
+  infraDefinitionName: k8s-dev
   name: Primary
   phaseSteps:
   - type: K8S_PHASE_STEP
@@ -75,7 +76,7 @@ rollbackPhases:
 - type: KUBERNETES
   computeProviderName: AWS Sales Playground - EKS
   daemonSet: false
-  infraMappingName: k8s-dev
+  infraDefinitionName: k8s-dev
   name: Rollback Canary
   phaseNameForRollback: Canary
   phaseSteps:
@@ -94,7 +95,7 @@ rollbackPhases:
 - type: KUBERNETES
   computeProviderName: AWS Sales Playground - EKS
   daemonSet: false
-  infraMappingName: k8s-dev
+  infraDefinitionName: k8s-dev
   name: Rollback Primary
   phaseNameForRollback: Primary
   phaseSteps:
