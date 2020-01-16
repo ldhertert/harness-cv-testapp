@@ -13,18 +13,31 @@ jobs:
       run: |
         cat package.json | grep '"version":' |  awk '{print $2}' | sed 's/"//g' | sed 's/,//g' > $GITHUB_WORKSPACE/version
         mkdir ./dist
-        zip -r "./dist/harness-cv-testapp.$(cat $GITHUB_WORKSPACE/version).zip" ./package.json ./src
-        #zip -r "./dist/harness-cv-testapp.1.0.3.zip" ./package.json ./src
+        zip -r "./dist/harness-cv-testapp.zip" ./package.json ./src
         ls ./dist
-    - name: Publish to nexus
-      uses: sonatype-nexus-community/nexus-repo-github-action@1.0.0
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
       with:
-        serverUrl: https://nexusv3.tools.harnessio.se/
-        username: admin
-        password: ${{ secrets.nexusPassword }}
-        format: maven2
-        repository: maven-releases
-        coordinates: "groupId=harness-sample-apps artifactId=harness-cv-testapp version=$(cat $GITHUB_WORKSPACE/version)"
-        assets: extension=zip
-        filename: "./dist/harness-cv-testapp.$(cat $GITHUB_WORKSPACE/version).zip"
+        java-version: 1.8
+    - name: Deploy to nexus
+      run: mvn deploy:deploy-file \
+        -DgroupId=harness-sample-apps \
+        -DartifactId=harness-cv-testapp2 \
+        -Dversion=$(cat $GITHUB_WORKSPACE/version) \
+        -Dpackaging=zip \
+        -Dfile=./dist/harness-cv-testapp.zip \
+        -DgeneratePom=true \
+        -DupdateReleaseInfo=true \
+        -Durl="https://admin:${{ secrets.nexusPassword }}@nexusv3.tools.harnessio.se/repository/maven-releases/"
+    #- name: Publish to nexus
+    #  uses: sonatype-nexus-community/nexus-repo-github-action@1.0.0
+    #  with:
+    #    serverUrl: https://nexusv3.tools.harnessio.se/
+    #    username: admin
+    #    password: ${{ secrets.nexusPassword }}
+    #    format: maven2
+    #    repository: maven-releases
+    #    coordinates: "groupId=harness-sample-apps artifactId=harness-cv-testapp version=$(cat $GITHUB_WORKSPACE/version)"
+    #    assets: extension=zip
+    #    filename: "./dist/harness-cv-testapp.$(cat $GITHUB_WORKSPACE/version).zip"
         #filename: "./dist/harness-cv-testapp.1.0.3.zip"
