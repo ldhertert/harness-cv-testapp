@@ -11,21 +11,20 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build zip artifact
       run: |
+        cat package.json | grep '"version":' |  awk '{print $2}' | sed 's/"//g' | sed 's/,//g' > $GITHUB_WORKSPACE/version
         mkdir ./dist
-        zip -r "./dist/harness-cv-testapp.${GITHUB_REF##*/}.zip" ./package.json ./src
+        zip -r "./dist/harness-cv-testapp.$(cat $GITHUB_WORKSPACE/version).zip" ./package.json ./src
         #zip -r "./dist/harness-cv-testapp.1.0.3.zip" ./package.json ./src
         ls ./dist
     - name: Publish to nexus
       uses: sonatype-nexus-community/nexus-repo-github-action@1.0.0
-      env:
-        fileName: "./dist/harness-cv-testapp.${GITHUB_REF##*/}.zip"
       with:
         serverUrl: https://nexusv3.tools.harnessio.se/
         username: admin
         password: ${{ secrets.nexusPassword }}
         format: maven2
         repository: maven-releases
-        coordinates: groupId=harness-sample-apps artifactId=harness-cv-testapp version=1.0.3
+        coordinates: "groupId=harness-sample-apps artifactId=harness-cv-testapp version=$(cat $GITHUB_WORKSPACE/version)"
         assets: extension=zip
-        filename: ${fileName}
+        filename: "./dist/harness-cv-testapp.$(cat $GITHUB_WORKSPACE/version).zip"
         #filename: "./dist/harness-cv-testapp.1.0.3.zip"
