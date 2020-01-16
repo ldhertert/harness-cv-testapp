@@ -23,10 +23,8 @@ jobs:
       env:
         NEXUS_PASSWORD: ${{ secrets.nexusPassword }}
       run: echo "<settings xmlns=\"http://maven.apache.org/SETTINGS/1.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd\"><servers><server><id>Nexus</id><username>admin</username><password>${NEXUS_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml  
-    - name: Test
-      run: cat ~/.m2/settings.xml
     - name: Deploy to nexus
-      run: mvn deploy:deploy-file -DgroupId=harness-sample-apps -DartifactId=package -Dversion=0.0.3 -Dpackaging=zip -Dfile=./dist/harness-cv-testapp.zip -DrepositoryId=Nexus -Durl=https://nexusv3.tools.harnessio.se/repository/maven-releases
+      run: mvn deploy:deploy-file -DgroupId=harness-sample-apps -DartifactId=harness-cv-testapp -Dversion=$(cat $GITHUB_WORKSPACE/version) -Dpackaging=zip -Dfile=./dist/harness-cv-testapp.zip -DrepositoryId=Nexus -Durl=https://nexusv3.tools.harnessio.se/repository/maven-releases
     #- name: Publish to nexus
     #  uses: sonatype-nexus-community/nexus-repo-github-action@1.0.0
     #  with:
