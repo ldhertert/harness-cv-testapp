@@ -26,7 +26,7 @@ jobs:
     - name: Test
       run: cat ~/.m2/settings.xml
     - name: Deploy to nexus
-      run: mvn deploy:deploy-file -DgroupId=harness-sample-apps -DartifactId=package -Dversion=0.0.3 -Dpackaging=zip -Dfile=test.zip -DrepositoryId=Nexus -DupdateReleaseInfo=true -Durl=https://nexusv3.tools.harnessio.se/repository/maven-releases
+      run: mvn deploy:deploy-file -DgroupId=harness-sample-apps -DartifactId=package -Dversion=0.0.3 -Dpackaging=zip -Dfile=./dist/harness-cv-testapp.zip -DrepositoryId=Nexus -Durl=https://nexusv3.tools.harnessio.se/repository/maven-releases
     #- name: Publish to nexus
     #  uses: sonatype-nexus-community/nexus-repo-github-action@1.0.0
     #  with:
