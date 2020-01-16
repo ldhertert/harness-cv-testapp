@@ -5,7 +5,9 @@ module.exports.getConfig = () => {
         enabled: !!(process.env.APPD_CONTROLLER_URL && process.env.APPD_ACCESS_KEY),
         controllerUrl: process.env.APPD_CONTROLLER_URL,
         accessKey: process.env.APPD_ACCESS_KEY,
-        applicationName: process.env.APPD_APPLICATION_NAME || 'harness-cv-testapp'
+        applicationName: process.env.APPD_APPLICATION_NAME || 'harness-cv-testapp',
+        nodeName: 'process',
+        noNodeNameSuffix: false // The controller will automatically append the node name with a unique number
     };
 
     if (config.enabled) {
@@ -20,6 +22,16 @@ module.exports.getConfig = () => {
         } else {
             config.accountName = 'customer1';
         }
+
+        if (process.env.VCAP_APPLICATION) {
+            //currently running in PCF - need to do some custom node name stuff
+            let appName = JSON.parse(process.env.VCAP_APPLICATION).application_name
+            let instanceIndex = process.env.CF_INSTANCE_INDEX
+            config.nodeName = `${appName}:${instanceIndex}`
+            config.noNodeNameSuffix = true
+        }
+        //application name (i.e. harness__cv__testapp__Prod__2) echo $VCAP_APPLICATION | jq -r '.application_name'
+        //instance index (0,1,..) CF_INSTANCE_INDEX
     }
     return config;
 }
@@ -34,7 +46,8 @@ module.exports.init = function(config) {
             accountAccessKey: config.appd.accessKey,
             applicationName: config.appd.applicationName,
             tierName: 'harness-cv-testapp-web',
-            nodeName: 'process' // The controller will automatically append the node name with a unique number
+            nodeName: config.appd.nodeName,
+            noNodeNameSuffix: config.appd.noNodeNameSuffix
         });
     }
 }
