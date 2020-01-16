@@ -1,7 +1,6 @@
 name: Publish to nexus
 
-on: []
-#on: [push]
+on: [push]
 
 jobs:
   build:
