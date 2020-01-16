@@ -9,13 +9,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
+    - name: Build zip artifact
       run: |
         mkdir ./dist
-        #zip -r "./dist/harness-cv-testapp.${GITHUB_REF##*/}.zip" ./package.json ./src
-        zip -r "./dist/harness-cv-testapp.1.0.3.zip" ./package.json ./src
+        zip -r "./dist/harness-cv-testapp.${GITHUB_REF##*/}.zip" ./package.json ./src
+        #zip -r "./dist/harness-cv-testapp.1.0.3.zip" ./package.json ./src
         ls ./dist
     - name: Publish to nexus
       uses: sonatype-nexus-community/nexus-repo-github-action@1.0.0
@@ -27,5 +25,5 @@ jobs:
         repository: maven-releases
         coordinates: groupId=harness-sample-apps artifactId=harness-cv-testapp version=1.0.3
         assets: extension=zip
-        #filename: "./dist/harness-cv-testapp.${GITHUB_REF##*/}.zip"
-        filename: "./dist/harness-cv-testapp.1.0.3.zip"
+        filename: ./dist/harness-cv-testapp.${{GITHUB_REF##*/}}.zip
+        #filename: "./dist/harness-cv-testapp.1.0.3.zip"
