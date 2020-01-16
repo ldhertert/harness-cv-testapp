@@ -105,6 +105,7 @@ To publish to Docker Hub, run the following:
 Changelog
 ---------
 
+* 1.0.3 - Jan 16, 2020 - Improve console error logging
 * 1.0.2 - July 2, 2019 - Fix docker CMD
 * 1.0.1 - July 1, 2019 - Added support for AppDynamics APM
 * 1.0.0 - June 30, 2019 - Initial release.  Support for New Relic & Splunk on Kubernetes.
@@ -120,3 +121,4 @@ Roadmap
 * Support for non-kubernetes deployments - TBD
 * Configure cloudwatch logs for AMI (https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html)
 * Allow configuration of load generator to point to external load balancer
+* PCF Support (status - PCF working properly, just need to put into config as code and add documentation)

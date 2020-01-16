@@ -1,6 +1,6 @@
 {
   "name": "harness-cv-testapp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "src/index.js",
   "config": {
@@ -27,14 +27,14 @@
   "license": "ISC",
   "dependencies": {
     "appdynamics": "^4.5.23",
-    "axios": "^0.19.0",
-    "dotenv": "^8.0.0",
-    "koa": "^2.7.0",
+    "axios": "^0.19.1",
+    "dotenv": "^8.2.0",
+    "koa": "^2.11.0",
     "koa-router": "^7.4.0",
-    "newrelic": "^5.10.0",
+    "newrelic": "^6.2.0",
     "winston": "^3.2.1",
-    "winston-logzio": "^5.0.0",
-    "winston-splunk-httplogger": "^2.0.0"
+    "winston-logzio": "^5.0.3",
+    "winston-splunk-httplogger": "^2.3.1"
   },
   "devDependencies": {
     "cross-conf-env": "^1.1.2",

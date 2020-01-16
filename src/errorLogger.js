@@ -11,19 +11,19 @@ const logger = winston.createLogger({
       format.metadata(),
       format.json(),
     ),
-    //transports: [ new winston.transports.Console() ],
-    transports: [ ],
+    transports: [ new winston.transports.Console() ],
+    //transports: [ ],
   });
 
 module.exports.start = function(config) {
     config.logger = logger;
     if (config.environment === 'development') {
-        console.log('Adding console log transport');
-        logger.transports.add(new winston.transports.Console());
+        logger.level = 'debug';
     }
     let context = { config, logger };
     splunk.init(context);
     logz.init(context);
+
     startLoggingErrors(context)
 }
 

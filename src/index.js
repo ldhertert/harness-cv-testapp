@@ -7,6 +7,8 @@ const loadGenerator = require('./loadGenerator')
 
 function start() {
     errorLogger.start(config)
+    config.logger.debug("Starting application with config", config)
+    
     webServer.start(config)
     loadGenerator.start(config)
 }

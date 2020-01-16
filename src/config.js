@@ -5,7 +5,7 @@ const splunk = require('./providers/splunk')
 const logz = require('./providers/logzio')
 
 let config = {
-    environment: process.env.environment || "production",
+    environment: process.env.ENVIRONMENT || "production",
     logErrorFrequencyPerMinute: 5,
     logUnusualError: process.env.HARNESS_MODE === "UNKNOWN_EVENT",
     splunk: splunk.getConfig(),
@@ -31,7 +31,5 @@ if (process.env.HARNESS_MODE === "APM_REGRESSION") {
 if (process.env.HARNESS_MODE === "UNEXPECTED_FREQUENCY") {
     config.logErrorFrequencyPerMinute = 200;
 }
-
-console.log('Config:', JSON.stringify(config, null, 4))
 
 module.exports = config;

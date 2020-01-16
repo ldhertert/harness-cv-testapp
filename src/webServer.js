@@ -21,11 +21,15 @@ module.exports.start = function(config) {
         addTransaction(router, t.path, t.responseTime, t.errorRate);
     })
 
+    app.on('error', err => {
+        config.logger.error(err);
+    });
+
     app.listen(process.env.PORT || 3000);
 }
 
 function addTransaction(router, path, responseTime, errorRate) {
-    console.log(`Adding APM Transaction`, path, responseTime, errorRate)
+    config.logger.debug(`Adding APM Transaction`, path, responseTime, errorRate)
 
     router.get('/' + path, async (ctx, next) => {
         await next();
