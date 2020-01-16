@@ -17,6 +17,8 @@ jobs:
         ls ./dist
     - name: Publish to nexus
       uses: sonatype-nexus-community/nexus-repo-github-action@1.0.0
+      env:
+        fileName: "./dist/harness-cv-testapp.${GITHUB_REF##*/}.zip"
       with:
         serverUrl: https://nexusv3.tools.harnessio.se/
         username: admin
@@ -25,5 +27,5 @@ jobs:
         repository: maven-releases
         coordinates: groupId=harness-sample-apps artifactId=harness-cv-testapp version=1.0.3
         assets: extension=zip
-        filename: "./dist/harness-cv-testapp.${GITHUB_REF##*/}.zip"
+        filename: ${fileName}
         #filename: "./dist/harness-cv-testapp.1.0.3.zip"
