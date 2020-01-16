@@ -25,5 +25,5 @@ jobs:
         repository: maven-releases
         coordinates: groupId=harness-sample-apps artifactId=harness-cv-testapp version=1.0.3
         assets: extension=zip
-        filename: ./dist/harness-cv-testapp.${{ GITHUB_REF##*/ }}.zip
+        filename: "./dist/harness-cv-testapp.${GITHUB_REF##*/}.zip"
         #filename: "./dist/harness-cv-testapp.1.0.3.zip"
