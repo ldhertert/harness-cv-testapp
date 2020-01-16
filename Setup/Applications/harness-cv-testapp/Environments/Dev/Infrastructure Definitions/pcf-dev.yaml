@@ -1,0 +1,9 @@
+harnessApiVersion: '1.0'
+type: INFRA_DEFINITION
+cloudProviderType: PCF
+deploymentType: PCF
+infrastructure:
+- type: PCF_PCF
+  cloudProviderName: luke-pcf
+  organization: luke.hertert-org
+  space: development
