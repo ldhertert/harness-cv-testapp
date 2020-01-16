@@ -1,0 +1,30 @@
+name: Publish to nexus
+
+on: []
+#on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        mkdir ./dist
+        zip -r "./dist/harness-cv-testapp.${GITHUB_REF##*/}.zip" ./package.json ./src
+        ls ./dist
+    - name: Publish to nexus
+      uses: sonatype-nexus-community/nexus-repo-github-action@1.0.0
+      with:
+        serverUrl: https://nexusv3.tools.harnessio.se/
+        username: admin
+        password: ${{ secrets.nexusPassword }}
+        format: maven2
+        repository: maven-releases
+        coordinates: groupId=harness-sample-apps artifactId=harness-cv-testapp version=${GITHUB_REF##*/}
+        assets: extension=zip
+        filename: "./dist/harness-cv-testapp.${GITHUB_REF##*/}.zip"
