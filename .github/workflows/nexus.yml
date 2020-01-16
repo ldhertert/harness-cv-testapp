@@ -20,7 +20,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Setup Nexus Credentials
-      run: echo "<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd"><servers><server><id>Nexus</id><username>admin</username><password>${{ secrets.nexusPassword }}</password></server></servers></settings>" > ~/.m2/settings.xml
+      run: echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd"><servers><server><id>Nexus</id><username>admin</username><password>${{ secrets.nexusPassword }}</password></server></servers></settings>' > ~/.m2/settings.xml
     - name: Deploy to nexus
       run: mvn deploy:deploy-file -DgroupId=harness-sample-apps -DartifactId=package -Dversion=0.0.3 -Dpackaging=zip -Dfile=test.zip -DrepositoryId=Nexus -DupdateReleaseInfo=true -Durl=https://nexusv3.tools.harnessio.se/repository/maven-releases
     #- name: Publish to nexus
